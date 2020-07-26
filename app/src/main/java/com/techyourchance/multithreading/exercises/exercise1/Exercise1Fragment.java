@@ -52,17 +52,21 @@ public class Exercise1Fragment extends BaseFragment {
     }
 
     private void countIterations() {
-        long startTimestamp = System.currentTimeMillis();
-        long endTimestamp = startTimestamp + ITERATIONS_COUNTER_DURATION_SEC * 1000;
 
-        int iterationsCount = 0;
-        while (System.currentTimeMillis() <= endTimestamp) {
-            iterationsCount++;
-        }
+        // Lambda replaces creating a new Runnable() with a run method that overrides.
+        new Thread(() -> {
+            long startTimestamp = System.currentTimeMillis();
+            long endTimestamp = startTimestamp + ITERATIONS_COUNTER_DURATION_SEC * 1000;
 
-        Log.d(
-                "Exercise1",
-                "iterations in " + ITERATIONS_COUNTER_DURATION_SEC + "seconds: " + iterationsCount
-        );
+            int iterationsCount = 0;
+            while (System.currentTimeMillis() <= endTimestamp) {
+                iterationsCount++;
+            }
+
+            Log.d(
+                    "Exercise1",
+                    "iterations in " + ITERATIONS_COUNTER_DURATION_SEC + "seconds: " + iterationsCount
+            );
+        }).start();
     }
 }
